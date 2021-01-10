@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -13,14 +16,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.concurrent.ExecutionException;
 
 public class MainActivity extends AppCompatActivity {
 
+    TextView cityName;
+    Button searchButton;
+    TextView result;
+
     class Weather extends AsyncTask<String,Void,String>
     {
+
+
+
+
 
         @Override
         protected String doInBackground(String... address) {
@@ -52,6 +61,76 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    public void search(View view)
+    {
+        cityName = findViewById(R.id.cityName);
+        searchButton = findViewById(R.id.searchbutton);
+        result = findViewById(R.id.result);
+
+        String cName = cityName.getText().toString();
+
+        String content;
+        Weather weather = new Weather();
+        try {
+            content = weather.execute("https://api.openweathermap.org/data/2.5/weather?q="+cName+"&APPID=4d801ce314d1d5657fcf0757d0e04c04").get();
+            Log.i("contentData",content);
+
+            JSONObject jsonObject = new JSONObject(content);
+            String weatherData = jsonObject.getString("weather");
+            String mainTemperature = jsonObject.getString("main");
+            String mainTemperature2 = jsonObject.getString("main");
+            Log.i("weatherData",weatherData);
+
+            JSONArray array = new JSONArray(weatherData);
+
+            String main = "";
+            String description = "";
+            String temperature = "";
+            String feelsLike = "";
+
+            for(int i=0; i<array.length(); i++){
+                JSONObject weatherPart = array.getJSONObject(i);
+                main = weatherPart.getString("main");
+                description = weatherPart.getString("description");
+
+            }
+
+            JSONObject mainPart = new JSONObject(mainTemperature);
+            temperature = mainPart.getString("temp");
+            double celsius = Double.parseDouble(temperature) - 273.15;
+            int cel2 = (int)celsius;
+            String cel = Double.toString(cel2);
+            Log.i("temperature",cel);
+
+            JSONObject mainPart2 = new JSONObject(mainTemperature2);
+            feelsLike = mainPart2.getString("feels_like");
+            double celsius2 = Double.parseDouble(feelsLike) - 273.15;
+            int cel3 = (int)celsius2;
+            String cel4 = Double.toString(cel3);
+            Log.i("feelsLike",cel4);
+
+
+
+
+
+
+            Log.i("main",main);
+            Log.i("description",description);
+            String resultText ="Description: "+ description + "\nTemperature: " + cel + "\nFeels Like: " + cel4;
+            Log.i("main","hi");
+            result.setText(resultText);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,11 +155,10 @@ public class MainActivity extends AppCompatActivity {
             for(int i=0; i<array.length(); i++){
                 JSONObject weatherPart = array.getJSONObject(i);
                 main = weatherPart.getString("main");
-                main = weatherPart.getString("description");
+                description = weatherPart.getString("description");
 
             }
 
-                Log.i("main",main);
 
 
         } catch (Exception e) {
