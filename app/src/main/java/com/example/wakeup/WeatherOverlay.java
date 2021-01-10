@@ -24,6 +24,7 @@ import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +52,7 @@ public class WeatherOverlay extends AppCompatActivity implements LocationListene
     Location loc;
     ProgressDialog progressDialog;
     Button scanBtn;
+    ImageView wIcon;
 
 
     class Weather extends AsyncTask<String, Void, String> {
@@ -90,6 +92,7 @@ public class WeatherOverlay extends AppCompatActivity implements LocationListene
     public void search() {
 
         result = findViewById(R.id.result);
+        wIcon = findViewById(R.id.wIcon);
 
 
         double lat = loc.getLatitude();
@@ -115,11 +118,13 @@ public class WeatherOverlay extends AppCompatActivity implements LocationListene
             String description = "";
             String temperature = "";
             String feelsLike = "";
+            String icon = "";
 
             for (int i = 0; i < array.length(); i++) {
                 JSONObject weatherPart = array.getJSONObject(i);
                 main = weatherPart.getString("main");
                 description = weatherPart.getString("description");
+                icon = weatherPart.getString("icon");
 
             }
 
@@ -140,9 +145,71 @@ public class WeatherOverlay extends AppCompatActivity implements LocationListene
 
             Log.i("main", main);
             Log.i("description", description);
+            Log.i("icon",icon);
             String resultText = "Description: " + description + "\nTemperature: " + cel + "\nFeels Like: " + cel4;
+            String imagename = "a" + icon +".png";
             Log.i("main", "hi");
             result.setText(resultText);
+            if (icon.equals("01d")){
+                wIcon.setImageResource(R.drawable.a01d);
+            }
+            if (icon.equals("01n")){
+                wIcon.setImageResource(R.drawable.a01n);
+            }
+            if (icon.equals("02d")){
+                wIcon.setImageResource(R.drawable.a02d);
+            }
+            if (icon.equals("02n")){
+                wIcon.setImageResource(R.drawable.a02n);
+            }
+            if (icon.equals("03d")){
+                wIcon.setImageResource(R.drawable.a03d);
+            }
+            if (icon.equals("03n")){
+                wIcon.setImageResource(R.drawable.a03n);
+            }
+            if (icon.equals("04d")){
+                wIcon.setImageResource(R.drawable.a04d);
+            }
+            if (icon.equals("04n")){
+                wIcon.setImageResource(R.drawable.a01n);
+            }
+            if (icon.equals("09d")){
+                wIcon.setImageResource(R.drawable.a09d);
+            }
+            if (icon.equals("09n")){
+                wIcon.setImageResource(R.drawable.a09n);
+            }
+            if (icon.equals("10d")){
+                wIcon.setImageResource(R.drawable.a10d);
+            }
+            if (icon.equals("10n")){
+                wIcon.setImageResource(R.drawable.a10n);
+            }
+            if (icon.equals("11d")){
+                wIcon.setImageResource(R.drawable.a11d);
+            }
+            if (icon.equals("11n")){
+                wIcon.setImageResource(R.drawable.a11n);
+            }
+            if (icon.equals("13n")){
+                wIcon.setImageResource(R.drawable.a13n);
+            }
+            if (icon.equals("13d")){
+                wIcon.setImageResource(R.drawable.a13d);
+            }
+            if (icon.equals("50n")){
+                wIcon.setImageResource(R.drawable.a50n);
+            }
+            if (icon.equals("50d")){
+                wIcon.setImageResource(R.drawable.a50d);
+            }
+
+
+
+
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -158,6 +225,7 @@ public class WeatherOverlay extends AppCompatActivity implements LocationListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_overlay);
+        // Intent intent = getIntent();
         progressDialog = new ProgressDialog(WeatherOverlay.this);
         progressDialog.setMessage("Fetching location...");
         scanBtn = findViewById(R.id.scanBtn);

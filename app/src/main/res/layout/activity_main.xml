@@ -48,9 +48,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/digital_clock"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/dblue"
         android:backgroundTint="@color/neon"
-        android:text="Set Alarm"/>
+        android:text="Set An Alarm"
+        android:textColor="@color/dblue"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
 
 

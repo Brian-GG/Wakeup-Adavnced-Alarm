@@ -8,9 +8,12 @@ import android.app.Service;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.IBinder;
 
+
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 
 import java.util.Calendar;
@@ -23,6 +26,9 @@ public class MyService extends Service {
     public Integer alarmMinute;
     private Ringtone ringtone;
     private Timer t = new Timer();
+    MainActivity m = new MainActivity();
+
+
 
     private static final String CHANNEL_ID = "MyNotificationChannelID";
 
@@ -32,6 +38,7 @@ public class MyService extends Service {
         return null;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
 
@@ -41,7 +48,7 @@ public class MyService extends Service {
         ringtone = RingtoneManager.getRingtone(getApplicationContext(), RingtoneManager.getDefaultUri(RingtoneManager.TYPE_RINGTONE));
 
         try {
-            Intent notificationIntent = new Intent(this, MainActivity.class);
+            Intent notificationIntent = new Intent(this, WeatherOverlay.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, notificationIntent, 0);
 
             Notification notification = new NotificationCompat.Builder(this, CHANNEL_ID)
@@ -69,6 +76,7 @@ public class MyService extends Service {
                 if (Calendar.getInstance().getTime().getHours() == alarmHour &&
                         Calendar.getInstance().getTime().getMinutes() == alarmMinute) {
                     ringtone.play();
+
                 } else {
                     ringtone.stop();
                 }

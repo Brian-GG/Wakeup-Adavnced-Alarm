@@ -22,8 +22,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/timPicker"
         android:layout_centerHorizontal="true"
-        android:textColor="@color/dblue"
+        android:layout_marginTop="101dp"
         android:backgroundTint="@color/neon"
-        android:text="Back"/>
+        android:text="Back"
+        android:textColor="@color/dblue" />
 
 </RelativeLayout>

@@ -18,7 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Wakeup">
-        <activity android:name=".WeatherOverlay"></activity>
+        <activity android:name=".WeatherOverlay"
+            android:parentActivityName=".MainActivity"/>
 
         <service android:name=".MyService" />
 
@@ -34,7 +35,7 @@
             android:name=".CaptureAct"
             android:screenOrientation="fullSensor"
             android:stateNotNeeded="true"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+            android:windowSoftInputMode="stateAlwaysHidden" />
     </application>
 
 </manifest>
