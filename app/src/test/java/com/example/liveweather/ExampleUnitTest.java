@@ -1,4 +1,4 @@
-package com.example.bardcodescannerhackathon;
+package com.example.liveweather;
 
 import org.junit.Test;
 
