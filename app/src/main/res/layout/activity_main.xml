@@ -46,5 +46,15 @@
         android:backgroundTint="@color/neon"
         android:text="Set Alarm"/>
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:layout_editor_absoluteX="55dp"
+        tools:layout_editor_absoluteY="28dp"
+        android:hint="Hours:"
+        android:textColorHint="@color/black"
+        android:text="Something"
+        android:textColor="@color/black"/>
+
 
 </RelativeLayout>
